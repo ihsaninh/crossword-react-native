@@ -4,7 +4,6 @@ import Register from "./Register/"
 import Home from "./Home/"
 import PlayGround from "./PlayGround/"
 
-
 import { createStackNavigator, createAppContainer, createSwitchNavigator } from 'react-navigation'
 
 const AppStack = createStackNavigator(
@@ -30,22 +29,20 @@ const AuthStack = createStackNavigator(
     {
         Login: {
             screen: Login,
-            navigationOptions: { gesturesEnabled: false}
-        }
-    },
-     {
+            navigationOptions: { gesturesEnabled: true }
+        },
         Register: {
             screen: Register,
-            navigationOptions: { gesturesEnabled: false}
+            navigationOptions: { gesturesEnabled: true }
         }
     },
     {
         defaultNavigationOptions: {
+            initialRouteName: Login,
             resetOnBlur: true,
-            header: null
         }
     }
-)
+);
 
 const AppContainer = createAppContainer(createSwitchNavigator(
     {

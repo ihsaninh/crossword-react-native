@@ -5021,6 +5021,13 @@ react-native-ratings@^6.3.0:
     lodash "^4.17.4"
     prop-types "^15.5.10"
 
+react-native-raw-bottom-sheet@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-raw-bottom-sheet/-/react-native-raw-bottom-sheet-2.0.2.tgz#a617d88f40204350f6ad8cd061dfa2b6edfea57c"
+  integrity sha512-efSnzRm+xBP8b3KngI4CP7nlPBvB6kBX4LKHf2+jDB8E0MnJIcT5bu+iF3SkGzrKjxNC5g8mMF2YmoqMN9sTTA==
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-safe-area-view@^0.14.1:
   version "0.14.6"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.14.6.tgz#9a9d37d9f8f3887d60c4076eae7b5d2319539446"
