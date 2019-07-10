@@ -7,7 +7,8 @@ import {
     TextInput,
     StatusBar,
     ScrollView,
-    TouchableOpacity
+    TouchableOpacity,
+    Keyboard
 } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Icon } from 'react-native-elements'
@@ -20,7 +21,8 @@ class Index extends Component {
 
         this.state = {
             inputEmail: '',
-            inputPassword: ''
+            inputPassword: '',
+            focused: false
         }
     }
 
@@ -47,12 +49,33 @@ class Index extends Component {
     //     }
     // }
 
-    handleLogin = () => {
-        email = this.state.inputEmail
-        password = this.state.inputPassword
-
-        alert(`Your email is ${email} and your password is ${password}`)
+    componentDidMount() {
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
     }
+
+    componentWillUnmount() {
+        this.keyboardDidHideListener.remove();
+    }
+
+    onFocusChange = () => {
+        this.setState({ 
+            focused: true
+        });
+    }
+
+    keyboardDidHide = () => {
+        Keyboard.dismiss();
+        this.setState({
+          focused: false
+        })
+    }
+
+    // handleLogin = () => {
+    //     email = this.state.inputEmail
+    //     password = this.state.inputPassword
+
+    //     alert(`Your email is ${email} and your password is ${password}`)
+    // }
 
     render() {
         return (
@@ -63,7 +86,7 @@ class Index extends Component {
                         barStyle="light-content"
                     />
                         <View style={{height: '30%', justifyContent: 'center'}}>
-                            <View style={{marginTop: '15%'}}>
+                            <View style={(this.state.focused) ? {marginTop: '15%', display: 'none'} :  {marginTop: '15%'}}>
                                 <Icon
                                    name="delicious"
                                     type="font-awesome"
@@ -85,6 +108,7 @@ class Index extends Component {
                         </View>
                         <View style={{height: '60%',justifyContent: 'center'}}>
                             <TextInput
+                                onFocus={this.onFocusChange}
                                 selectionColor={'#f0f0f0'}
                                 style={{
                                     height: 40,
@@ -103,6 +127,7 @@ class Index extends Component {
                                 }
                             />
                             <TextInput
+                                onFocus={this.onFocusChange}
                                 selectionColor={'#f0f0f0'}
                                 style={{
                                     height: 40,
@@ -135,12 +160,16 @@ class Index extends Component {
                                     fontSize: 16
                                 }}
                                 title="LOGIN"
-                                onPress={this.handleLogin}
+                                onPress={() =>
+                                            this.props.navigation.navigate(
+                                                'Home'
+                                            )
+                                        }
                             />
                         </View>
                         <View style={{height: '10%'}}>
                              <View
-                                style={{ alignItems: 'center', marginTop: 20 }}>
+                                style={(this.state.focused) ? { alignItems: 'center', marginTop: 20, display: 'none' } : { alignItems: 'center', marginTop: 20 }}>
                                 <Text style={{ color: '#fff' }}>
                                     Belum punya akun?{' '}
                                     <Text
