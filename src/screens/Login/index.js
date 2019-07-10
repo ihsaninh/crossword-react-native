@@ -1,83 +1,166 @@
 import React, { Component, Fragment } from 'react'
 import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity
+    StyleSheet,
+    View,
+    Text,
+    AsyncStorage,
+    TextInput,
+    StatusBar,
+    ScrollView,
+    TouchableOpacity
 } from 'react-native'
-import { Input, Icon, Button } from 'react-native-elements'
+import { Button } from 'react-native-elements'
+import { Icon } from 'react-native-elements'
+import LinearGradient from 'react-native-linear-gradient'
+// import axios from "axios";
 
-class index extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email:'',
-      password:''
+class Index extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            inputEmail: '',
+            inputPassword: ''
+        }
     }
-  }
 
-  static navigationOptions = {
-    title: 'Login Page',
-  }
+    // handleLogin = () => {
+    //     axios
+    //         .post("http://192.168.0.26:3000/auth/login/", {
+    //             email: this.state.inputEmail,
+    //             password: this.state.inputPassword
+    //         })
+    //         .then(res => {
+    //             const token = res.data.token;
+    //             AsyncStorage.setItem("token", token);
+    //             this.props.navigation.navigate(token ? "RoomChat" : "Login");
+    //         })
+    //         .catch(error => {
+    //             alert("kesalahan saat login silahkan coba lagi");
+    //         });
+    // };
 
-  handleRegister() {
-    this.props.navigation.navigate('Register')
-  }
+    // async componentDidMount() {
+    //     const token = await AsyncStorage.getItem("token");
+    //     if (token !== null) {
+    //         this.props.navigation.navigate("RoomChat");
+    //     }
+    // }
 
-  render() {
-    return (
-      <Fragment>
-        <View style={{ flex: 1 }}>
-          <View style={{ marginTop: '10%' }}>
-            <View style={{ alignItems: 'center' }}>
-              <Icon
-                reverse
-                name='codepen'
-                type='font-awesome'
-              />
+    handleLogin = () => {
+        email = this.state.inputEmail
+        password = this.state.inputPassword
+
+        alert(`Your email is ${email} and your password is ${password}`)
+    }
+
+    render() {
+        return (
+            <View style={{flex: 1}}>
+                 <LinearGradient colors={['#0ba19e', '#1A2980']} style={{flex: 1}}>
+                    <StatusBar
+                        backgroundColor="#077d7b"
+                        barStyle="light-content"
+                    />
+                        <View style={{height: '30%', justifyContent: 'center'}}>
+                            <View style={{marginTop: '15%'}}>
+                                <Icon
+                                   name="delicious"
+                                    type="font-awesome"
+                                    color="#f0f0f0"
+                                    size={60}
+                                />
+                                <Text
+                                    style={{
+                                        fontSize: 30,
+                                        textAlign: 'center',
+                                        marginBottom: 40,
+                                        color: '#f0f0f0',
+                                        fontWeight: '500',
+                                        marginTop: 10
+                                    }}>
+                                    CrossWords
+                                </Text>
+                            </View>
+                        </View>
+                        <View style={{height: '60%',justifyContent: 'center'}}>
+                            <TextInput
+                                selectionColor={'#f0f0f0'}
+                                style={{
+                                    height: 40,
+                                    borderColor: '#f0f0f0',
+                                    borderWidth: 2,
+                                    color: '#f0f0f0',
+                                    borderRadius: 50,
+                                    paddingLeft: 20,
+                                    fontWeight: '500',
+                                    marginHorizontal: 30
+                                }}
+                                placeholderTextColor={'#f0f0f0'}
+                                placeholder="Email Address"
+                                onChangeText={inputEmail =>
+                                    this.setState({ inputEmail })
+                                }
+                            />
+                            <TextInput
+                                selectionColor={'#f0f0f0'}
+                                style={{
+                                    height: 40,
+                                    color: '#f0f0f0',
+                                    borderColor: '#f0f0f0',
+                                    borderWidth: 2,
+                                    borderRadius: 50,
+                                    paddingLeft: 20,
+                                    fontWeight: '500',
+                                    margin: 20,
+                                    marginHorizontal: 30
+                                }}
+                                placeholderTextColor={'#f0f0f0'}
+                                placeholder="Password"
+                                onChangeText={inputPassword =>
+                                    this.setState({ inputPassword })
+                                }
+                                secureTextEntry={true}
+                            />
+                            <Button
+                                buttonStyle={{
+                                    margin: 30,
+                                    marginTop: 10,
+                                    backgroundColor: '#f0f0f0',
+                                    borderRadius: 50
+                                }}
+                                titleStyle={{
+                                    color: '#2193b0',
+                                    fontWeight: '500',
+                                    fontSize: 16
+                                }}
+                                title="LOGIN"
+                                onPress={this.handleLogin}
+                            />
+                        </View>
+                        <View style={{height: '10%'}}>
+                             <View
+                                style={{ alignItems: 'center', marginTop: 20 }}>
+                                <Text style={{ color: '#fff' }}>
+                                    Belum punya akun?{' '}
+                                    <Text
+                                        style={{ color: '#ddd' }}
+                                        onPress={() =>
+                                            this.props.navigation.navigate(
+                                                'Register'
+                                            )
+                                        }>
+                                        Silahkan Register
+                                    </Text>
+                                </Text>
+                            </View>
+                        </View>
+                 </LinearGradient>
             </View>
-            <View style={{ marginTop: 20 }}>
-              <Input
-                onChangeText={(email)=>this.setState({email})}
-                value={this.state.email}
-                placeholder='Email Address'
-                leftIcon={
-                  <Icon
-                    name='user'
-                    type='font-awesome'
-                  />
-                }
-              />
-            </View>
-            <View>
-              <Input
-                onChangeText={(password)=>this.setState({password})}
-                value={this.state.password}
-                placeholder='Password'
-                leftIcon={
-                  <Icon
-                    name='lock'
-                    type='font-awesome'
-                  />
-                }
-              />
-            </View>
-          </View>
-          <Button
-            title="Login Bro"
-            containerStyle={{ margin: 40, alignItems: 'center', justifyContent: 'center', marginTop: 20 }}
-          />
-          <TouchableOpacity onPress={() => this.handleRegister()} style={{ alignItems: 'center', marginTop: 20 }}>
-            <Text>Belum punya akun? silahkan Register</Text>
-          </TouchableOpacity>
-        </View>
-      </Fragment>
-    );
-  }
+        )
+    }
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({})
 
-});
-
-export default index
+export default Index

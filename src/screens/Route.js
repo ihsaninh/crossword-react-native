@@ -29,11 +29,11 @@ const AuthStack = createStackNavigator(
     {
         Login: {
             screen: Login,
-            navigationOptions: { gesturesEnabled: true }
+            navigationOptions: { gesturesEnabled: true, header: null }
         },
         Register: {
             screen: Register,
-            navigationOptions: { gesturesEnabled: true }
+            navigationOptions: { gesturesEnabled: true, header: null }
         }
     },
     {
