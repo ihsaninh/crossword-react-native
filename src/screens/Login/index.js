@@ -13,7 +13,7 @@ import {
 import { Button } from 'react-native-elements'
 import { Icon } from 'react-native-elements'
 import LinearGradient from 'react-native-linear-gradient'
-// import axios from "axios";
+import axios from "axios";
 
 class Index extends Component {
     constructor(props) {
@@ -25,29 +25,6 @@ class Index extends Component {
             focused: false
         }
     }
-
-    // handleLogin = () => {
-    //     axios
-    //         .post("http://192.168.0.26:3000/auth/login/", {
-    //             email: this.state.inputEmail,
-    //             password: this.state.inputPassword
-    //         })
-    //         .then(res => {
-    //             const token = res.data.token;
-    //             AsyncStorage.setItem("token", token);
-    //             this.props.navigation.navigate(token ? "RoomChat" : "Login");
-    //         })
-    //         .catch(error => {
-    //             alert("kesalahan saat login silahkan coba lagi");
-    //         });
-    // };
-
-    // async componentDidMount() {
-    //     const token = await AsyncStorage.getItem("token");
-    //     if (token !== null) {
-    //         this.props.navigation.navigate("RoomChat");
-    //     }
-    // }
 
     componentDidMount() {
         this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
@@ -70,23 +47,16 @@ class Index extends Component {
         })
     }
 
-    // handleLogin = () => {
-    //     email = this.state.inputEmail
-    //     password = this.state.inputPassword
-
-    //     alert(`Your email is ${email} and your password is ${password}`)
-    // }
-
     render() {
         return (
-            <View style={{flex: 1}}>
-                 <LinearGradient colors={['#0ba19e', '#1A2980']} style={{flex: 1}}>
+            <View style={styles.container}>
+                 <LinearGradient colors={['#0ba19e', '#1A2980']} style={styles.gradientContainer}>
                     <StatusBar
                         backgroundColor="#077d7b"
                         barStyle="light-content"
                     />
-                        <View style={{height: '30%', justifyContent: 'center'}}>
-                            <View style={(this.state.focused) ? {marginTop: '15%', display: 'none'} :  {marginTop: '15%'}}>
+                        <View style={styles.topBodyContainer}>
+                            <View style={(this.state.focused) ? styles.topBodyHidden :  styles.topBody}>
                                 <Icon
                                    name="delicious"
                                     type="font-awesome"
@@ -94,32 +64,16 @@ class Index extends Component {
                                     size={60}
                                 />
                                 <Text
-                                    style={{
-                                        fontSize: 30,
-                                        textAlign: 'center',
-                                        marginBottom: 40,
-                                        color: '#f0f0f0',
-                                        fontWeight: '500',
-                                        marginTop: 10
-                                    }}>
+                                    style={styles.appsTitle}>
                                     CrossWords
                                 </Text>
                             </View>
                         </View>
-                        <View style={{height: '60%',justifyContent: 'center'}}>
+                        <View style={styles.formBodyContainer}>
                             <TextInput
                                 onFocus={this.onFocusChange}
                                 selectionColor={'#f0f0f0'}
-                                style={{
-                                    height: 40,
-                                    borderColor: '#f0f0f0',
-                                    borderWidth: 2,
-                                    color: '#f0f0f0',
-                                    borderRadius: 50,
-                                    paddingLeft: 20,
-                                    fontWeight: '500',
-                                    marginHorizontal: 30
-                                }}
+                                style={styles.formStyle}
                                 placeholderTextColor={'#f0f0f0'}
                                 placeholder="Email Address"
                                 onChangeText={inputEmail =>
@@ -129,17 +83,7 @@ class Index extends Component {
                             <TextInput
                                 onFocus={this.onFocusChange}
                                 selectionColor={'#f0f0f0'}
-                                style={{
-                                    height: 40,
-                                    color: '#f0f0f0',
-                                    borderColor: '#f0f0f0',
-                                    borderWidth: 2,
-                                    borderRadius: 50,
-                                    paddingLeft: 20,
-                                    fontWeight: '500',
-                                    margin: 20,
-                                    marginHorizontal: 30
-                                }}
+                                style={styles.formStyle}
                                 placeholderTextColor={'#f0f0f0'}
                                 placeholder="Password"
                                 onChangeText={inputPassword =>
@@ -148,32 +92,19 @@ class Index extends Component {
                                 secureTextEntry={true}
                             />
                             <Button
-                                buttonStyle={{
-                                    margin: 30,
-                                    marginTop: 10,
-                                    backgroundColor: '#f0f0f0',
-                                    borderRadius: 50
-                                }}
-                                titleStyle={{
-                                    color: '#2193b0',
-                                    fontWeight: '500',
-                                    fontSize: 16
-                                }}
+                                buttonStyle={styles.buttonStyle}
+                                titleStyle={styles.titleButtonStyle}
                                 title="LOGIN"
-                                onPress={() =>
-                                            this.props.navigation.navigate(
-                                                'Home'
-                                            )
-                                        }
+                                onPress={() => this.props.navigation.navigate('Home')} 
                             />
                         </View>
-                        <View style={{height: '10%'}}>
+                        <View style={styles.bottomBodyContainer}>
                              <View
-                                style={(this.state.focused) ? { alignItems: 'center', marginTop: 20, display: 'none' } : { alignItems: 'center', marginTop: 20 }}>
-                                <Text style={{ color: '#fff' }}>
+                                style={(this.state.focused) ? styles.textBottomHidden :  styles.textBottom}>
+                                <Text style={styles.textColorBottom}>
                                     Belum punya akun?{' '}
                                     <Text
-                                        style={{ color: '#ddd' }}
+                                        style={styles.textColorLink}
                                         onPress={() =>
                                             this.props.navigation.navigate(
                                                 'Register'
@@ -190,6 +121,75 @@ class Index extends Component {
     }
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    gradientContainer: {
+        flex: 1
+    },
+    topBodyContainer: {
+        height: '30%', justifyContent: 'center'
+    },
+    topBody: { 
+       marginTop: '15%', 
+    },
+    topBodyHidden: {
+        marginTop: '15%', 
+        display: 'none'
+    },
+    appsTitle: {
+        fontSize: 30,
+        textAlign: 'center',
+        marginBottom: 40,
+        color: '#f0f0f0',
+        fontWeight: '500',
+        marginTop: 10
+    },
+    formBodyContainer: {
+        height: '60%',
+        justifyContent: 'center'
+    },
+    formStyle: {
+        height: 40,
+        borderColor: '#f0f0f0',
+        borderWidth: 2,
+        color: '#f0f0f0',
+        borderRadius: 50,
+        paddingLeft: 20,
+        fontWeight: '500',
+        marginBottom: 20,
+        marginHorizontal: 30
+    },
+    buttonStyle: {
+        margin: 30,
+        marginTop: 10,
+        backgroundColor: '#f0f0f0',
+        borderRadius: 50
+    },
+    titleButtonStyle: {
+        color: '#2193b0',
+        fontWeight: '500',
+        fontSize: 16
+    },
+    bottomBodyContainer: {
+        height: '10%'
+    },
+    textBottomHidden: {
+        alignItems: 'center', 
+        marginTop: 20, 
+        display: 'none'
+    },
+    textBottom: {
+        alignItems: 'center', 
+        marginTop: 20, 
+    },
+    textColorBottom: {  
+        color: '#fff'
+    },
+    textColorLink: {
+        color: '#ddd'
+    }
+})
 
 export default Index
