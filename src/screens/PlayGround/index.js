@@ -5,7 +5,6 @@ import LinearGradient from 'react-native-linear-gradient'
 import RBSheet from "react-native-raw-bottom-sheet";
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements'
-import { ADD_ANSWERS } from '../../redux/actions/types';
 import URL from '../../Config/URL'
 
 class Index extends Component {
@@ -21,11 +20,13 @@ class Index extends Component {
       input: [],
       answers: [],
       userId:"",
-      focused: false
+      focused: false,
+      loading: false
     }
   }
 
   componentDidMount(){
+    this.setState({loading:true})
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide)
     for(let i = this.props.answers.length-1 ; i >= 0; i--){
       if(this.props.answers[i].userId == this.userId){
@@ -99,6 +100,7 @@ class Index extends Component {
                   <View>
                     <Text style={{position:"absolute", top:-2, left:2, zIndex:1}}>{number}</Text>
                     <TextInput onFocus={this.onFocusChange}
+                      autoCapitalize='characters'
                       style={styles.tiles} 
                       value={this.state.input[this.availableIndexes[j][k].toUpperCase()]} 
                       onChangeText={(val)=>{
@@ -108,8 +110,6 @@ class Index extends Component {
                       }} 
                       textAlign='center' 
                       maxLength={1} 
-                      autoCapitalize='characters' 
-                      keyboardType='default'
                     />
                   </View>
                 )}
@@ -119,7 +119,7 @@ class Index extends Component {
               }
             }
           }
-        
+          this.setState({loading:false})
         }).catch((err) => {
           console.log(err.response.data.message);
           
@@ -143,10 +143,8 @@ class Index extends Component {
               // alert(res.data.message)
               if(res.data.data.finished){
                 alert("Yeeey kamu Berhasil menyelesaikan crossword kategori ini")
-              }else{
-                alert("MASIH SALAH CUK!,\nCEK YANG BENER CUK!")
+                this.props.navigation.navigate('Home')
               }
-              this.props.navigation.navigate('Home')
             })
             .catch((err) => {
               alert(err.response.message)
@@ -161,12 +159,24 @@ class Index extends Component {
         
         
         render(){
+          if(this.state.loading){
+            return(
+              <View style={{flex: 1}}>
+                <LinearGradient colors={['#0ba19e', '#1A2980']} style={{flex: 1, justifyContent:'center', flexDirection:"column"}}>
+
+                  <ActivityIndicator size="large" color="#FFF" />
+                  <Text style={{textAlign:"center", fontSize:20, color:"#FFF", fontWeight:"bold"}}>Kesel Ya??</Text>
+                </LinearGradient>
+              </View>
+            )
+          }else{
           return(
             <View style={{flex:1}}>
             
             
             <LinearGradient colors={['#0ba19e', '#1A2980']} style={{flex: 1}}>
               <FlatList
+                removeClippedSubviews={false}
                 style={{height: '80%'}}
                 data={this.crosswords}
                 keyExtractor={(item,index) => {return index.toString()}}
@@ -220,7 +230,7 @@ class Index extends Component {
               <Button titleStyle={(this.state.focused) ? {display: 'none'} : {color: '#f0f0f0'}} title="Selesai cuy" type="outline" onPress={()=> this.handleSubmit()}/>
            </LinearGradient>
             </View>
-    )
+    )}
   }
   
 }
@@ -242,21 +252,14 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       color: '#000000',
       fontSize: 18
-    },
+  },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    justifyContent: 'center'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  horizontal: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      padding: 10
+  }
 });

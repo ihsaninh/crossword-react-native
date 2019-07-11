@@ -8,7 +8,8 @@ import {
     StatusBar,
     ScrollView,
     TouchableOpacity,
-    Keyboard
+    Keyboard,
+    ActivityIndicator
 } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Icon } from 'react-native-elements'
@@ -24,7 +25,8 @@ class Index extends Component {
             inputUsername: '',
             inputEmail: '',
             inputPassword: '',
-            focused: false
+            focused: false,
+            isLoading: false
         }
     }
 
@@ -48,36 +50,12 @@ class Index extends Component {
           focused: false
         })
     }
-
-    // handleLogin = () => {
-    //     axios
-    //         .post("http://192.168.0.26:3000/auth/login/", {
-    //             email: this.state.inputEmail,
-    //             password: this.state.inputPassword
-    //         })
-    //         .then(res => {
-    //             const token = res.data.token;
-    //             AsyncStorage.setItem("token", token);
-    //             this.props.navigation.navigate(token ? "RoomChat" : "Login");
-    //         })
-    //         .catch(error => {
-    //             alert("kesalahan saat login silahkan coba lagi");
-    //         });
-    // };
-
-    // async componentDidMount() {
-    //     const token = await AsyncStorage.getItem("token");
-    //     if (token !== null) {
-    //         this.props.navigation.navigate("RoomChat");
-    //     }
-    // }
-
     handleRegister = () => {
+        this.setState({isLoading:true})
         username = this.state.inputUsername
         email = this.state.inputEmail
         password = this.state.inputPassword
-
-        // alert(`Your email is ${email} and your password is ${password}`)
+        
         if( username=="" || email=="" || password=="" ){
             alert('Inputan tidak boleh kosong, WOY!')
         }else{
@@ -87,15 +65,29 @@ class Index extends Component {
                 password
             }).then((res)=>{
                 alert('Berhasil daftar, silahkan login')
+                this.setState({isLoading:false})
+                
                 this.setState({inputEmail:"",inputPassword:"",inputUsername:""})
             }).catch((err) => {
                 alert(err.response.data.message)
+                this.setState({isLoading:false})
             })
         }
 
     }
 
     render() {
+        if(this.state.isLoading){
+            return(
+                <View style={{flex: 1}}>
+                <LinearGradient colors={['#0ba19e', '#1A2980']} style={{flex: 1, justifyContent:'center', flexDirection:"column"}}>
+
+                  <ActivityIndicator size="large" color="#FFF" />
+                  <Text style={{textAlign:"center", fontSize:20, color:"#FFF", fontWeight:"bold"}}>Please wait..</Text>
+                </LinearGradient>
+              </View>
+              )
+        }else{
         return (
             <View style={{flex: 1}}>
                  <LinearGradient colors={['#0ba19e', '#1A2980']} style={{flex: 1}}>
@@ -143,7 +135,8 @@ class Index extends Component {
                                 onChangeText={input =>
                                     this.setState({ inputUsername: input })
                                 }
-                            />
+                                value={this.state.inputUsername}
+                                />
                             <TextInput
                                 onFocus={this.onFocusChange}
                                 selectionColor={'#f0f0f0'}
@@ -163,7 +156,8 @@ class Index extends Component {
                                 onChangeText={inputEmail =>
                                     this.setState({ inputEmail })
                                 }
-                            />
+                                value={this.state.inputEmail}
+                                />
                             <TextInput
                                 onFocus={this.onFocusChange}
                                 selectionColor={'#f0f0f0'}
@@ -184,7 +178,8 @@ class Index extends Component {
                                     this.setState({ inputPassword })
                                 }
                                 secureTextEntry={true}
-                            />
+                                value={this.state.inputPassword}
+                                />
                             <Button
                                 buttonStyle={{
                                     margin: 30,
@@ -220,7 +215,7 @@ class Index extends Component {
                         </View>
                  </LinearGradient>
             </View>
-        )
+        )}
     }
 }
 

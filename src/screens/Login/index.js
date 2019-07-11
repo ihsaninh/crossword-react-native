@@ -8,7 +8,8 @@ import {
     StatusBar,
     ScrollView,
     TouchableOpacity,
-    Keyboard
+    Keyboard,
+    ActivityIndicator
 } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Icon } from 'react-native-elements'
@@ -23,7 +24,8 @@ class Index extends Component {
         this.state = {
             inputEmail: '',
             inputPassword: '',
-            focused: false
+            focused: false,
+            isLoading: false
         }
     }
 
@@ -33,6 +35,7 @@ class Index extends Component {
         if(email=="" || password==""){
             alert('Email/ Password Tidak Boleh Kosong!')
         }else{
+            this.setState({isLoading:true})
             axios
                 .post(`${URL}/login`, {
                     email: this.state.inputEmail,
@@ -44,12 +47,14 @@ class Index extends Component {
                     AsyncStorage.setItem('token', `${res.data.token.type} ${res.data.token.token}` )
                     .then((res) => {
                         console.log(res);
-                        
                         this.props.navigation.navigate('App');
+                        this.setState({isLoading:false})                       
                     }).catch(err => alert('token failed'))
                     AsyncStorage.setItem("token", token);
+                    this.setState({isLoading:false})                       
                 })
                 .catch(err => {
+                    this.setState({isLoading:false})                       
                     alert(err.response.data.message)
                 });
             }
@@ -89,6 +94,17 @@ class Index extends Component {
     // }
 
     render() {
+        if(this.state.isLoading){
+            return(
+                <View style={{flex: 1}}>
+                <LinearGradient colors={['#0ba19e', '#1A2980']} style={{flex: 1, justifyContent:'center', flexDirection:"column"}}>
+
+                  <ActivityIndicator size="large" color="#FFF" />
+                  <Text style={{textAlign:"center", fontSize:20, color:"#FFF", fontWeight:"bold"}}>Please wait..</Text>
+                </LinearGradient>
+              </View>
+              )
+        }else{
         return (
             <View style={{flex: 1}}>
                  <LinearGradient colors={['#0ba19e', '#1A2980']} style={{flex: 1}}>
@@ -193,7 +209,7 @@ class Index extends Component {
                         </View>
                  </LinearGradient>
             </View>
-        )
+        )}
     }
 }
 
