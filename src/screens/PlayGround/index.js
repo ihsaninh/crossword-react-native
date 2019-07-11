@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AsyncStorage, Platform, StyleSheet, Text, View, TextInput, FlatList, TouchableOpacity, ScrollView} from 'react-native';
+import {AsyncStorage, Platform, StyleSheet, Text, View, TextInput, FlatList, TouchableOpacity, ScrollView, Keyboard, ActivityIndicator} from 'react-native';
 import axios from 'axios';
 import LinearGradient from 'react-native-linear-gradient'
 import RBSheet from "react-native-raw-bottom-sheet";
@@ -20,32 +20,20 @@ class Index extends Component {
     this.state = {
       input: [],
       answers: [],
-      userId:""
+      userId:"",
+      focused: false,
+      isloading: false
     }
   }
 
-  
-  
-  componentDidMount(){
-    for(let i = this.props.answers.length-1 ; i >= 0; i--){
-      if(this.props.answers[i].userId == this.userId){
-
-        if(this.props.answers[i].crosswordsId==this.id){
-  
-          this.setState({input: this.props.answers[i].userAnswers})
-          break;
-        }
-      }
-    }
-    // console.log(this.props.answers[this.props.answers.length-1].userAnswers);
+  componentWillMount(){
     
-    // this.totalColumn = await navigation.getParam('column')
-    this.renderTiles()
-  }
-
-  componentWillUnmount(){
-    this.toStore()
-  }
+    }
+  onFocusChange = () => {
+        this.setState({ 
+            focused: true
+        });
+    }
   
   async renderTiles(){
     const token = await AsyncStorage.getItem('token')
@@ -84,7 +72,7 @@ class Index extends Component {
                 tiles:(
                   <View>
                     <Text style={{position:"absolute", top:-2, left:2, zIndex:1}}>{number}</Text>
-                    <TextInput 
+                    <TextInput onFocus={this.onFocusChange}
                       style={styles.tiles} 
                       value={this.state.input[this.availableIndexes[j][k].toUpperCase()]} 
                       onChangeText={(val)=>{
@@ -105,6 +93,8 @@ class Index extends Component {
               }
             }
           }
+        
+      this.setState({isloading:false})
         }).catch((err) => {
           console.log(err.response.data.message);
           
@@ -141,10 +131,24 @@ class Index extends Component {
           this.props.dispatch({type: "ADD_ANSWERS", payload: {userAnswers: this.state.input, crosswordsId: this.id, userId: this.userId}})
           
         }
+
+        Indicator(){
+          if(this.isloading){
+
+          return (
+                    <ActivityIndicator size="large" color="#4167b2" />
+
+            )
+          }else{
+            return null
+          }
+  }
         
         render(){
           return(
             <View style={{flex:1}}>
+            {this.Indicator()}
+            
             <LinearGradient colors={['#0ba19e', '#1A2980']} style={{flex: 1}}>
               <FlatList
                 style={{height: '80%'}}
@@ -173,6 +177,7 @@ class Index extends Component {
           <View style={{marginLeft: 10, marginTop: 10}}>
             <Text style={{fontSize: 16, color: 'salmon', fontStyle: 'italic', fontWeight: '500', paddingBottom: 10}}>Soal Mendatar</Text>
               <FlatList
+                    removeClippedSubviews={false}
                     style={{paddingBottom: 10}}
                     keyExtractor={(item, index)=> {return index.toString()}}
                     data={this.state.answers}
@@ -193,10 +198,10 @@ class Index extends Component {
         </RBSheet>
         <TouchableOpacity style={{marginTop: -50}} onPress={() => { this.RBSheet.open() }}>
                 <View style={{alignItems: 'center', paddingBottom:25}}>
-                  <Text style={{color: '#f0f0f0', fontSize: 25, fontWeight: 'bold'}}>Lihat Soal</Text>
+                  <Text style={(this.state.focused) ? {display: 'none'} : {color: '#f0f0f0', fontSize: 25, fontWeight: 'bold'} }>Lihat Soal</Text>
                 </View>
               </TouchableOpacity>
-              <Button titleStyle={{color: '#f0f0f0'}} title="Selesai cuy" type="outline" onPress={()=> this.handleSubmit()}/>
+              <Button titleStyle={(this.state.focused) ? {display: 'none'} : {color: '#f0f0f0'}} title="Selesai cuy" type="outline" onPress={()=> this.handleSubmit()}/>
            </LinearGradient>
             </View>
     )
@@ -209,6 +214,9 @@ mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps)(Index)
+
+
+
 
 const styles = StyleSheet.create({
   tiles:{
