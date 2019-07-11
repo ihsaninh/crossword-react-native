@@ -13,7 +13,8 @@ import {
 import { Button } from 'react-native-elements'
 import { Icon } from 'react-native-elements'
 import LinearGradient from 'react-native-linear-gradient'
-// import axios from "axios";
+import axios from "axios";
+import URL from '../../Config/URL'
 
 class Index extends Component {
     constructor(props) {
@@ -72,11 +73,26 @@ class Index extends Component {
     // }
 
     handleRegister = () => {
-        email = this.state.inputUsername
+        username = this.state.inputUsername
         email = this.state.inputEmail
         password = this.state.inputPassword
 
-        alert(`Your email is ${email} and your password is ${password}`)
+        // alert(`Your email is ${email} and your password is ${password}`)
+        if( username=="" || email=="" || password=="" ){
+            alert('Inputan tidak boleh kosong, WOY!')
+        }else{
+            axios.post(`${URL}/register`, {
+                username,
+                email,
+                password
+            }).then((res)=>{
+                alert('Berhasil daftar, silahkan login')
+                this.setState({inputEmail:"",inputPassword:"",inputUsername:""})
+            }).catch((err) => {
+                alert(err.response.data.message)
+            })
+        }
+
     }
 
     render() {
@@ -124,8 +140,8 @@ class Index extends Component {
                                 }}
                                 placeholderTextColor={'#f0f0f0'}
                                 placeholder="Username"
-                                onChangeText={inputEmail =>
-                                    this.setState({ inputUsername })
+                                onChangeText={input =>
+                                    this.setState({ inputUsername: input })
                                 }
                             />
                             <TextInput

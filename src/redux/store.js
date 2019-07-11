@@ -1,17 +1,10 @@
 import { createStore, applyMiddleware } from 'redux'
 import logger from 'redux-logger'
+import appReducer from './reducers/index'
+import thunk from 'redux-thunk'
 
-const initialState = {
-  data: []
-}
-
-reducer = (state, action) => {
-
-  return state
-}
-
-const middleware = applyMiddleware(logger)
-const store = createStore(reducer, initialState, middleware)
+const middleware = applyMiddleware(thunk, logger)
+const store = createStore(appReducer, {}, middleware)
 export {
   store
 }

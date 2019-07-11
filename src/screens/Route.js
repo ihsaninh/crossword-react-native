@@ -8,13 +8,13 @@ import { createStackNavigator, createAppContainer, createSwitchNavigator } from 
 
 const AppStack = createStackNavigator(
     {
+        Home: {
+            screen: Home,
+            navigationOptions: { gesturesEnabled: true, header: null }
+        },
         PlayGround: {
             screen: PlayGround,
             navigationOptions: { gesturesEnabled: true, header: null }
-        },
-        Home: {
-            screen: Home,
-            navigationOptions: { gesturesEnabled: true, header: null}
         }
     },
     {
