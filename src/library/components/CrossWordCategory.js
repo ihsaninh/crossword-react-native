@@ -13,7 +13,7 @@ const CrossWordCategory = (props) => {
  			 <Text style={styles.categoryTitle}>{props.title}</Text>
  			</View>
  			<View style={{flex: 1}}>
- 				<Icon name='rightcircleo' type='antdesign' color='grey' />
+ 				<Icon name='rightcircleo' type='antdesign' color='#f0f0f0' />
  			</View>
  		</View>
     );
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
 		fontSize: 16, 
 		fontWeight: '500', 
 		paddingLeft: 5,
+		color: '#f0f0f0'
 	}
 });
 

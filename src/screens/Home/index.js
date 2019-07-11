@@ -1,42 +1,38 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Image, ScrollView } from 'react-native'
+import { StyleSheet, View, Text, Image, ScrollView, StatusBar } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { Avatar } from 'react-native-elements'
 import CrossWordCategory from '../../library/components/CrossWordCategory'
 
 class index extends Component {
-
   render() {
     return (
       <View style={styles.container}>
-        <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center', marginTop: 5}}>
-          <Text style={{fontSize: 21, fontWeight: '500'}}>Dashboard User</Text>
+      <LinearGradient colors={['#0ba19e', '#1A2980']} style={styles.gradientStyle}>
+      <StatusBar backgroundColor="#077d7b" barStyle="light-content" />
+        <View style={styles.topDashboardContainer}>
+          <Text style={styles.topDashboardTitle}>Dashboard User</Text>
         </View>
       	<View style={styles.authorContainer}>
-         {/*<LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#00B4DB', '#0083B0']}style={{flex: 1, elevation: 0.5}}>*/}
            <View style={styles.authorWrapper}>
-             <Avatar
-                rounded
-                size="medium"
-                source={{
-                  uri:
-                    'https://images.unsplash.com/photo-1507229943010-31ed01024f05?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80',
-                }}
+              <Image
+                style={styles.authorAvatar}
+                source={{uri: 'https://images.unsplash.com/photo-1507229943010-31ed01024f05?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80'}}
               />
               <Text style={styles.authorName}>Novita Yulian Sari</Text>
               <Text style={styles.authorInfo}>Newbie Level 1</Text>
            </View>
-         {/*</LinearGradient>*/}
         </View>
         <View style={styles.categoryContainer}>
+        <Text style={styles.categoryChoose}>Pilihan Kategori</Text>
           <ScrollView showsVerticalScrollIndicator={false}>
              <CrossWordCategory iconTitle="check" iconColor="salmon" iconType="entypo"  colorBorder="salmon" title="TTS Kategori Binatang" />
              <CrossWordCategory iconTitle="check" iconColor="salmon" iconType="entypo" colorBorder="salmon" title="TTS Kategori Tumbuhan" />
-             <CrossWordCategory iconTitle="cross" iconColor="grey" iconType="entypo" colorBorder="grey" title="TTS Kategori Astronomi" />
-             <CrossWordCategory iconTitle="cross" iconColor="grey" iconType="entypo" colorBorder="grey" title="TTS Kategori Bebas" />
-             <CrossWordCategory iconTitle="cross" iconColor="grey" iconType="entypo" colorBorder="grey" title="TTS Kategori Bebas 2" />
+             <CrossWordCategory iconTitle="cross" iconColor="#f0f0f0" iconType="entypo" colorBorder="#f0f0f0" title="TTS Kategori Astronomi" />
+             <CrossWordCategory iconTitle="cross" iconColor="#f0f0f0" iconType="entypo" colorBorder="#f0f0f0" title="TTS Kategori Bebas" />
           </ScrollView>
         </View>
+        </LinearGradient>
       </View>
     );
   }
@@ -61,14 +57,43 @@ const styles = StyleSheet.create({
   authorName: {
     fontSize: 22, 
     paddingTop: 10, 
-    fontWeight: '500'
+    fontWeight: '500',
+    color: '#f0f0f0'
   },
   authorInfo: {
     fontSize: 16, 
-    paddingTop: 5
+    paddingTop: 5,
+    color: '#f0f0f0'
   },
   categoryContainer: {
     flex: 5
+  },
+  gradientStyle: {
+    flex: 1
+  },
+  topDashboardContainer: {
+    flex: 0.5, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    marginTop: 5
+  },
+  topDashboardTitle: {
+    fontSize: 21, 
+    fontWeight: '500', 
+    color: '#f0f0f0'
+  },
+  authorAvatar: {
+    width: 60, 
+    height: 60, 
+    borderRadius: 100
+  },
+  categoryChoose: {
+    fontSize: 16, 
+    color: '#f0f0f0', 
+    paddingLeft: 30, 
+    paddingBottom: 10, 
+    fontWeight: '500', 
+    marginTop: -10
   }
 });
 

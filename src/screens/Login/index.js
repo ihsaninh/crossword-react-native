@@ -13,7 +13,7 @@ import {
 import { Button } from 'react-native-elements'
 import { Icon } from 'react-native-elements'
 import LinearGradient from 'react-native-linear-gradient'
-import axios from "axios";
+// import axios from "axios";
 
 class Index extends Component {
     constructor(props) {
