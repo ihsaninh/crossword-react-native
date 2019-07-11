@@ -10,11 +10,11 @@ const AppStack = createStackNavigator(
     {
         Home: {
             screen: Home,
-            navigationOptions: { gesturesEnabled: true }
+            navigationOptions: { gesturesEnabled: true, header: null}
         },
         PlayGround: {
             screen: PlayGround,
-            navigationOptions: { gesturesEnabled: true }
+            navigationOptions: { gesturesEnabled: true, header: null }
         }
     },
     {
