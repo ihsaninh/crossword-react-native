@@ -40,8 +40,6 @@ class Index extends Component {
                 })
                 .then(res => {
                     const token = res.data;
-                    console.log(res.data);
-                    console.log(`${res.data.token.type} ${res.data.token.token}`);
                     
                     AsyncStorage.setItem('token', `${res.data.token.type} ${res.data.token.token}` )
                     .then((res) => {

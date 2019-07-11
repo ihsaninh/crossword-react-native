@@ -21,14 +21,40 @@ class Index extends Component {
       input: [],
       answers: [],
       userId:"",
-      focused: false,
-      isloading: false
+      focused: false
     }
   }
 
-  componentWillMount(){
-    
+  componentDidMount(){
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide)
+    for(let i = this.props.answers.length-1 ; i >= 0; i--){
+      if(this.props.answers[i].userId == this.userId){
+
+        if(this.props.answers[i].crosswordsId==this.id){
+  
+          this.setState({input: this.props.answers[i].userAnswers})
+          break;
+        }
+      }
     }
+    // console.log(this.props.answers[this.props.answers.length-1].userAnswers);
+    
+    // this.totalColumn = await navigation.getParam('column')
+    this.renderTiles()
+  }
+
+  componentWillUnmount(){
+    this.keyboardDidHideListener.remove()
+    this.toStore()
+  }
+
+  keyboardDidHide = () => {
+    Keyboard.dismiss();
+    this.setState({
+      focused:false
+    })
+  }
+
   onFocusChange = () => {
         this.setState({ 
             focused: true
@@ -94,7 +120,6 @@ class Index extends Component {
             }
           }
         
-      this.setState({isloading:false})
         }).catch((err) => {
           console.log(err.response.data.message);
           
@@ -119,8 +144,9 @@ class Index extends Component {
               if(res.data.data.finished){
                 alert("Yeeey kamu Berhasil menyelesaikan crossword kategori ini")
               }else{
-                alert("MASIH SALAH CUK!,\n CEK YANG BENER CUK!")
+                alert("MASIH SALAH CUK!,\nCEK YANG BENER CUK!")
               }
+              this.props.navigation.navigate('Home')
             })
             .catch((err) => {
               alert(err.response.message)
@@ -132,22 +158,12 @@ class Index extends Component {
           
         }
 
-        Indicator(){
-          if(this.isloading){
-
-          return (
-                    <ActivityIndicator size="large" color="#4167b2" />
-
-            )
-          }else{
-            return null
-          }
-  }
+        
         
         render(){
           return(
             <View style={{flex:1}}>
-            {this.Indicator()}
+            
             
             <LinearGradient colors={['#0ba19e', '#1A2980']} style={{flex: 1}}>
               <FlatList
@@ -165,7 +181,7 @@ class Index extends Component {
           ref={ref => {
             this.RBSheet = ref;
           }}
-          height={390}
+          height={450}
           duration={250}
           customStyles={{
             container: {
