@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import URL from '../../Config/URL'
 import { connect } from 'react-redux'
-import { addPlace } from '../../redux/actions/places'
+import { fetchData, getCrossword } from '../../redux/actions/places'
 import { StyleSheet, View, Text , AsyncStorage, Image, ScrollView, StatusBar} from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Avatar } from 'react-native-elements'
 import LinearGradient from 'react-native-linear-gradient'
 import CrossWordCategory from '../../library/components/CrossWordCategory'
 
@@ -19,8 +18,12 @@ class index extends Component {
     }
   }
 
+  componentWillMount() {
+    
+  }
+
   componentDidMount() {
-    this.getData()
+    this.props.fetchData()
   }
 
   async getData(){
@@ -42,6 +45,7 @@ class index extends Component {
   }
 
   playGround(id, column, userId) {
+    this.props.getCrossword(id)
     this.props.navigation.navigate('PlayGround', {
       id: id,
       column: column,
@@ -50,7 +54,6 @@ class index extends Component {
   }
   
   render() {
-    const list = this.state.data
     return (
 
       <View style={styles.container}>
@@ -73,7 +76,7 @@ class index extends Component {
         <Text style={styles.categoryChoose}>Pilihan Kategori</Text>
           <ScrollView showsVerticalScrollIndicator={false}>
           {
-            list.map((category, i) => (
+            this.props.crosswords.map((category, i) => (
               <TouchableOpacity key={i} onPress={() => this.playGround(category.id, category.total_column, category.user_crossword[0].user_id)}>
                 <CrossWordCategory iconTitle="check" iconColor={category.user_crossword[0].is_finished ? 'salmon': '#f0f0f0'} iconType="entypo"colorBorder={category.user_crossword[0].is_finished ? 'salmon': '#f0f0f0'} title={category.name} />
               </TouchableOpacity>
@@ -146,9 +149,19 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchData: () => {
+      dispatch(fetchData())
+    },
+    getCrossword: (id) => {
+      dispatch(getCrossword(id))
+    }
+  }
+}
 
 const mapStateToProps = (state) => ({
-  finishCond: state.reducers.finishCond
+  crosswords: state.reducers.crosswords
 })
 
-export default connect(mapStateToProps)(index)
+export default connect(mapStateToProps, mapDispatchToProps)(index)

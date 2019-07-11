@@ -1,23 +1,29 @@
-import { ADD_PLACE, ADD_ANSWERS } from '../actions/types'
+import { ADD_CROSSWORD, GET_CROSSWORD, ADD_ANSWERS } from '../actions/types'
 
 const initialState = {
   places : {
-    id: 0,
     places: []
   },
   answers: [],
-  finishCond: []
+  finishCond: [],
+  crosswords: []
 };
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
-    // case ADD_PLACE:
-    //   return {
-    //     ...state,
-    //       id: state.places.id + 1,
-    //       places: state.places.places.concat(action.payload)
-    //   }
-    //   break;
+    case ADD_CROSSWORD:
+    state = {
+      ...state,
+          crosswords: state.crosswords.concat(action.payload)
+    }
+    return state
+
+    case GET_CROSSWORD: 
+    state = {
+
+    }
+    return state
+
     case "ADD_ANSWERS":
       
         state = {answers: [...state.answers, { crosswordsId : action.payload.crosswordsId, userAnswers : action.payload.userAnswers, userId: action.payload.userId }] }
