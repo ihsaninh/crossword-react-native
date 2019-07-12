@@ -20,6 +20,14 @@ class index extends Component {
 
 	componentDidMount() {
 		this.getData()
+		const { navigation } = this.props;
+		this.focusListener = navigation.addListener('didFocus', () => {
+			this.getData()
+		});
+	}
+
+	componentWillUnmount() {
+		this.focusListener.remove();
 	}
 
 	async getData() {

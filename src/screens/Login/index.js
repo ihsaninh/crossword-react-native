@@ -56,8 +56,7 @@ class Index extends Component {
         }
         this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
     }
-
-
+    
     componentWillUnmount() {
         this.keyboardDidHideListener.remove();
     }
