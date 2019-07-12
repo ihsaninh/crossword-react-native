@@ -1,12 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import {
-    StyleSheet,
-    View,
-    Text,
-    TextInput,
-    StatusBar,
-    Keyboard,
-    ActivityIndicator
+import { StyleSheet, View, Text, TextInput, StatusBar, Keyboard, ActivityIndicator
 } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Icon } from 'react-native-elements'
@@ -70,7 +63,6 @@ class Index extends Component {
                 this.setState({ isLoading: false })
             })
         }
-
     }
 
     render() {

@@ -1,14 +1,5 @@
-import React, { Component, Fragment } from 'react'
-import {
-    StyleSheet,
-    View,
-    Text,
-    AsyncStorage,
-    TextInput,
-    StatusBar,
-    Keyboard,
-    ActivityIndicator
-} from 'react-native'
+import React, { Component } from 'react'
+import { StyleSheet, View, Text, AsyncStorage, TextInput, StatusBar, Keyboard, ActivityIndicator } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Icon } from 'react-native-elements'
 import LinearGradient from 'react-native-linear-gradient'
@@ -30,10 +21,10 @@ class Index extends Component {
     handleLogin = () => {
         email = this.state.inputEmail
         password = this.state.inputPassword
-        if(email=="" || password==""){
+        if (email == "" || password == "") {
             alert('Email/ Password Tidak Boleh Kosong!')
-        }else{
-            this.setState({isLoading:true})
+        } else {
+            this.setState({ isLoading: true })
             axios
                 .post(`${URL}/login`, {
                     email: this.state.inputEmail,
@@ -41,30 +32,29 @@ class Index extends Component {
                 })
                 .then(res => {
                     const token = res.data;
-                    
-                    AsyncStorage.setItem('token', `${res.data.token.type} ${res.data.token.token}` )
-                    .then((res) => {
-                        console.log(res);
-                        this.props.navigation.navigate('App');
-                        this.setState({isLoading:false})                       
-                    }).catch(err => alert('token failed'))
+                    AsyncStorage.setItem('token', `${res.data.token.type} ${res.data.token.token}`)
+                        .then((res) => {
+                            console.log(res);
+                            this.props.navigation.navigate('App');
+                            this.setState({ isLoading: false })
+                        }).catch(err => alert('token failed'))
                     AsyncStorage.setItem("token", token);
-                    this.setState({isLoading:false})                       
+                    this.setState({ isLoading: false })
                 })
                 .catch(err => {
-                    this.setState({isLoading:false})                       
+                    this.setState({ isLoading: false })
                     alert(err.response.data.message)
                 });
-            }
         }
-        
-        async componentDidMount() {
-            const token = await AsyncStorage.getItem("token");
-            if (token !== null) {
-                this.props.navigation.navigate("RoomChat");
-            }
-            this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
+    }
+
+    async componentDidMount() {
+        const token = await AsyncStorage.getItem("token");
+        if (token !== null) {
+            this.props.navigation.navigate("RoomChat");
         }
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
+    }
 
 
     componentWillUnmount() {
@@ -72,7 +62,7 @@ class Index extends Component {
     }
 
     onFocusChange = () => {
-        this.setState({ 
+        this.setState({
             focused: true
         });
     }
@@ -80,33 +70,33 @@ class Index extends Component {
     keyboardDidHide = () => {
         Keyboard.dismiss();
         this.setState({
-          focused: false
+            focused: false
         })
     }
 
     render() {
-        if(this.state.isLoading){
-            return(
-                <View style={{flex: 1}}>
-                <LinearGradient colors={['#0ba19e', '#1A2980']} style={{flex: 1, justifyContent:'center', flexDirection:"column"}}>
+        if (this.state.isLoading) {
+            return (
+                <View style={{ flex: 1 }}>
+                    <LinearGradient colors={['#0ba19e', '#1A2980']} style={{ flex: 1, justifyContent: 'center', flexDirection: "column" }}>
 
-                  <ActivityIndicator size="large" color="#FFF" />
-                  <Text style={{textAlign:"center", fontSize:20, color:"#FFF", fontWeight:"bold"}}>Please wait..</Text>
-                </LinearGradient>
-              </View>
-              )
-        }else{
-        return (
-            <View style={{flex: 1}}>
-                 <LinearGradient colors={['#0ba19e', '#1A2980']} style={{flex: 1}}>
-                    <StatusBar
-                        backgroundColor="#077d7b"
-                        barStyle="light-content"
-                    />
-                        <View style={{height: '30%', justifyContent: 'center'}}>
-                            <View style={(this.state.focused) ? {marginTop: '15%', display: 'none'} :  {marginTop: '15%'}}>
+                        <ActivityIndicator size="large" color="#FFF" />
+                        <Text style={{ textAlign: "center", fontSize: 20, color: "#FFF", fontWeight: "bold" }}>Please wait..</Text>
+                    </LinearGradient>
+                </View>
+            )
+        } else {
+            return (
+                <View style={{ flex: 1 }}>
+                    <LinearGradient colors={['#0ba19e', '#1A2980']} style={{ flex: 1 }}>
+                        <StatusBar
+                            backgroundColor="#077d7b"
+                            barStyle="light-content"
+                        />
+                        <View style={{ height: '30%', justifyContent: 'center' }}>
+                            <View style={(this.state.focused) ? { marginTop: '15%', display: 'none' } : { marginTop: '15%' }}>
                                 <Icon
-                                   name="delicious"
+                                    name="delicious"
                                     type="font-awesome"
                                     color="#f0f0f0"
                                     size={60}
@@ -124,7 +114,7 @@ class Index extends Component {
                                 </Text>
                             </View>
                         </View>
-                        <View style={{height: '60%',justifyContent: 'center'}}>
+                        <View style={{ height: '60%', justifyContent: 'center' }}>
                             <TextInput
                                 onFocus={this.onFocusChange}
                                 selectionColor={'#f0f0f0'}
@@ -181,8 +171,8 @@ class Index extends Component {
                                 onPress={this.handleLogin}
                             />
                         </View>
-                        <View style={{height: '10%'}}>
-                             <View
+                        <View style={{ height: '10%' }}>
+                            <View
                                 style={(this.state.focused) ? { alignItems: 'center', marginTop: 20, display: 'none' } : { alignItems: 'center', marginTop: 20 }}>
                                 <Text style={{ color: '#fff' }}>
                                     Belum punya akun?{' '}
@@ -198,9 +188,10 @@ class Index extends Component {
                                 </Text>
                             </View>
                         </View>
-                 </LinearGradient>
-            </View>
-        )}
+                    </LinearGradient>
+                </View>
+            )
+        }
     }
 }
 

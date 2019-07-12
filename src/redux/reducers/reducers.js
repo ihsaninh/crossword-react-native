@@ -1,7 +1,7 @@
 import { ADD_CROSSWORD, GET_CROSSWORD, ADD_ANSWERS } from '../actions/types'
 
 const initialState = {
-  places : {
+  places: {
     places: []
   },
   answers: [],
@@ -10,32 +10,32 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case ADD_CROSSWORD:
-    state = {
-      ...state,
-          crosswords: state.crosswords.concat(action.payload)
-    }
-    return state
+      state = {
+        ...state,
+        crosswords: state.crosswords.concat(action.payload)
+      }
+      return state
 
-    case GET_CROSSWORD: 
-    state = {
+    case GET_CROSSWORD:
+      state = {
 
-    }
-    return state
+      }
+      return state
 
     case "ADD_ANSWERS":
-      
-        state = {answers: [...state.answers, { crosswordsId : action.payload.crosswordsId, userAnswers : action.payload.userAnswers, userId: action.payload.userId }] }
-        
-    return state
+
+      state = { answers: [...state.answers, { crosswordsId: action.payload.crosswordsId, userAnswers: action.payload.userAnswers, userId: action.payload.userId }] }
+
+      return state
 
     case "STORE_FINISH_COND":
-      
-        state = {finishCond: [...state.finishCond, { crosswordsId : action.payload.crosswordsId, isFinish : action.payload.isFinish, userId: action.payload.userId }] }
-      
+
+      state = { finishCond: [...state.finishCond, { crosswordsId: action.payload.crosswordsId, isFinish: action.payload.isFinish, userId: action.payload.userId }] }
+
       return state
-    
+
     default:
       return state
   }
