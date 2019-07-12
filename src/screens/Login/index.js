@@ -6,8 +6,6 @@ import {
     AsyncStorage,
     TextInput,
     StatusBar,
-    ScrollView,
-    TouchableOpacity,
     Keyboard,
     ActivityIndicator
 } from 'react-native'
@@ -85,13 +83,6 @@ class Index extends Component {
           focused: false
         })
     }
-
-    // handleLogin = () => {
-    //     email = this.state.inputEmail
-    //     password = this.state.inputPassword
-
-    //     alert(`Your email is ${email} and your password is ${password}`)
-    // }
 
     render() {
         if(this.state.isLoading){
