@@ -109,7 +109,7 @@ class index extends Component {
 							{
 								list.map((category, i) => (
 									<TouchableOpacity key={i} onPress={() => this.playGround(category.id, category.total_column, category.user_crossword[0].user_id)}>
-										<CrossWordCategory iconTitle="check" iconColor={category.user_crossword[0].is_finished ? 'salmon' : '#f0f0f0'} iconType="entypo" colorBorder={category.user_crossword[0].is_finished ? 'salmon' : '#f0f0f0'} title={category.name} />
+										<CrossWordCategory iconTitle={category.user_crossword[0].is_finished ? 'check' : 'cross'} iconColor={category.user_crossword[0].is_finished ? 'salmon' : '#f0f0f0'} iconType="entypo" colorBorder={category.user_crossword[0].is_finished ? 'salmon' : '#f0f0f0'} title={category.name} />
 									</TouchableOpacity>
 								))
 							}
