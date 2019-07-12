@@ -32,6 +32,12 @@ class Index extends Component {
                 })
                 .then(res => {
                     const token = res.data;
+                    AsyncStorage.setItem('token', `${res.data.token.type} ${res.data.token.token}`)
+                        .then((res) => {
+                            console.log(res);
+                            this.props.navigation.navigate('App');
+                            this.setState({ isLoading: false })
+                        }).catch(err => alert('token failed'))
                     AsyncStorage.setItem("token", token);
                     this.setState({ isLoading: false })
                     this.props.navigation.navigate('App');
