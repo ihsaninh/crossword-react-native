@@ -154,7 +154,7 @@ class Index extends Component {
           <LinearGradient colors={['#0ba19e', '#1A2980']} style={{ flex: 1, justifyContent: 'center', flexDirection: "column" }}>
 
             <ActivityIndicator size="large" color="#FFF" />
-            <Text style={{ textAlign: "center", fontSize: 20, color: "#FFF", fontWeight: "bold" }}>Kesel Ya??</Text>
+            <Text style={{ textAlign: "center", fontSize: 20, color: "#FFF", fontWeight: "bold" }}>Please Wait..</Text>
           </LinearGradient>
         </View>
       )

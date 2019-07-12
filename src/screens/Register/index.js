@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, TextInput, StatusBar, Keyboard, ActivityIndicat
 import { Button } from 'react-native-elements'
 import { Icon } from 'react-native-elements'
 import LinearGradient from 'react-native-linear-gradient'
-import axios from "axios";
+import axios from "axios"
 import URL from '../../Config/URL'
 
 class Index extends Component {
@@ -70,7 +70,6 @@ class Index extends Component {
             return (
                 <View style={{ flex: 1 }}>
                     <LinearGradient colors={['#0ba19e', '#1A2980']} style={{ flex: 1, justifyContent: 'center', flexDirection: "column" }}>
-
                         <ActivityIndicator size="large" color="#FFF" />
                         <Text style={{ textAlign: "center", fontSize: 20, color: "#FFF", fontWeight: "bold" }}>Please wait..</Text>
                     </LinearGradient>
@@ -209,6 +208,8 @@ class Index extends Component {
     }
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+})
 
 export default Index
