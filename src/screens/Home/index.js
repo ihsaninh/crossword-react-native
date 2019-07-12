@@ -3,7 +3,7 @@ import axios from 'axios'
 import URL from '../../Config/URL'
 import { connect } from 'react-redux'
 import { addPlace } from '../../redux/actions/places'
-import { StyleSheet, View, Text, AsyncStorage, Image, ScrollView, StatusBar } from 'react-native'
+import { StyleSheet, View, Text, AsyncStorage, Image, ScrollView, StatusBar, Alert } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Icon } from 'react-native-elements'
 import LinearGradient from 'react-native-linear-gradient'
@@ -49,9 +49,27 @@ class index extends Component {
     })
   }
 
+  logoutConfirm = () => {
+	AsyncStorage.removeItem('token')
+	this.props.navigation.navigate('AuthLoading')
+  }
+
   handleLogout = () => {
-    AsyncStorage.removeItem('token')
-    this.props.navigation.navigate('AuthLoading')
+    Alert.alert(
+      'Konfirmasi Keluar',
+      'Yakin mau Keluar?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK', onPress: this.logoutConfirm
+        },
+      ],
+      { cancelable: false },
+    );
   }
 
   render() {
