@@ -32,7 +32,6 @@ class Index extends Component {
       if (this.props.answers[i].userId == this.userId) {
 
         if (this.props.answers[i].crosswordsId == this.id) {
-
           this.setState({ input: this.props.answers[i].userAnswers })
           break;
         }
