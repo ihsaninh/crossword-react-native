@@ -23,25 +23,14 @@ class index extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchData()
+    this.getData()
   }
 
   async getData(){
     const token = await AsyncStorage.getItem('token')
     console.log(token);
     
-    axios.get(`${URL}/crosswords`,{
-      headers: {
-        Authorization: token
-      }
-    }).then(res => {
-      if(res.status === 200) {
-        this.setState({
-          data: res.data.data,
-          user: res.data.userData.username
-        })
-      }
-    }).catch((err) => alert(err.response.data.message))
+    this.props.fetchData(token)
   }
 
   playGround(id, column, userId) {
@@ -151,8 +140,8 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchData: () => {
-      dispatch(fetchData())
+    fetchData: (token) => {
+      dispatch(fetchData(token))
     },
     getCrossword: (id) => {
       dispatch(getCrossword(id))

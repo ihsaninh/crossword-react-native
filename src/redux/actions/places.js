@@ -2,7 +2,7 @@ import { ADD_CROSSWORD, ADD_ANSWERS, GET_CROSSWORD } from './types'
 import axios from 'axios'
 import URL from '../../Config/URL'
 
-const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU2Mjg1MzQ0Mn0.xDxwlzDvkxJbfvpVG5HOKdo_uXCc8zpBykT1ysfcZsA'
+const toket = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU2Mjg1MzQ0Mn0.xDxwlzDvkxJbfvpVG5HOKdo_uXCc8zpBykT1ysfcZsA'
 
 //=========================UNTUK GET LIST CROSSWORD=======================
 
@@ -11,7 +11,7 @@ export const addCrossword = (bangsat) => ({
   payload : bangsat
 })
 
-export function fetchData() {
+export function fetchData(token) {
   return (dispatch) => {
     axios.get(`${URL}/crosswords`,{
       headers: {
