@@ -43,14 +43,10 @@ A crossword is a word puzzle that usually takes the form of a square or a rectan
    ```
 ## Screenshoot
 <div align="center">
-    <img width="200" src="https://github.com/ihsaninh/Interview-App-React-Native/blob/master/screenshoots/REGISTER.png">   
-    <img width="200" src="https://github.com/ihsaninh/Interview-App-React-Native/blob/master/screenshoots/TEXT.png">  
-    <img width="200" src="https://github.com/ihsaninh/Interview-App-React-Native/blob/master/screenshoots/TEXT2.png">    
-    <img width="200" src="https://github.com/ihsaninh/Interview-App-React-Native/blob/master/screenshoots/DASHBOARD.png">   
-    <img width="200" src="https://github.com/ihsaninh/Interview-App-React-Native/blob/master/screenshoots/MULTIPLE-CHOICE.png"> 
-    <img width="200" src="https://github.com/ihsaninh/Interview-App-React-Native/blob/master/screenshoots/MULTIPLE-SELECT.png">
-    <img width="200" src="https://github.com/ihsaninh/Interview-App-React-Native/blob/master/screenshoots/VIDEOCALL.png">
-    <img width="200" src="https://github.com/ihsaninh/Interview-App-React-Native/blob/master/screenshoots/FINISH.png">
+    <img width="200" src="https://github.com/ihsaninh/CrossWords-React-Native/blob/master/LOGIN.png">   
+    <img width="200" src="https://github.com/ihsaninh/CrossWords-React-Native/blob/master/DASHBOARD.png">  
+    <img width="200" src="https://github.com/ihsaninh/CrossWords-React-Native/blob/master/GAME.png">    
+    <img width="200" src="https://github.com/ihsaninh/CrossWords-React-Native/blob/master/QUESTIONS.png">   
 </div>
 
 
