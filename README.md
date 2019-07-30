@@ -16,7 +16,7 @@ A crossword is a word puzzle that usually takes the form of a square or a rectan
 ## Features
 * User can login/register to start the game
 * User can view completed and incompleted game in dashboard
-* users get one clue when they start the game.
+* User get one clue when they start the game.
 
 ## Requirements
 * [`npm`](https://www.npmjs.com/get-npm)
