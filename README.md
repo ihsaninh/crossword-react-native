@@ -23,6 +23,7 @@ A crossword is a word puzzle that usually takes the form of a square or a rectan
 * [`react native`](https://facebook.github.io/react-native)
 * [`redux`](https://redux.js.org/)
 * [`react navigation`](https://reactnavigation.org/)
+* [`API Data`](https://github.com/ihsaninh/crossword-api)
 
 
 ## How To Run
