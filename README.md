@@ -6,7 +6,7 @@
 - [Features](#features)
 - [Requirements](#requirements)
 - [How to Run](#howtorun)
-- [Screenshoots](#screenshoot)
+- [Screenshots](#screenshoot)
 - [Contributors](#contributors)
 
 ## Introduction
@@ -32,7 +32,7 @@ A crossword is a word puzzle that usually takes the form of a square or a rectan
    ```
    $ git clone https://github.com/ihsaninh/CrossWords-React-Native.git
    ```
-2. Install all depedencies on the package.json
+2. Install all dependencies on the package.json
    ```
    $ cd CrossWords-React-Native
    $ npm install
@@ -42,7 +42,7 @@ A crossword is a word puzzle that usually takes the form of a square or a rectan
    $ react-native start
    $ react-native run-android or react-native run-ios
    ```
-## Screenshoot
+## Screenshot
 <div align="center">
     <img width="200" src="https://github.com/ihsaninh/CrossWords-React-Native/blob/master/LOGIN.png">   
     <img width="200" src="https://github.com/ihsaninh/CrossWords-React-Native/blob/master/DASHBOARD.png">  
